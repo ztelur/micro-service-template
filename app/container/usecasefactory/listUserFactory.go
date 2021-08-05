@@ -3,7 +3,7 @@ package usecasefactory
 import (
 	"github.com/longjoy/micro-service/app/config"
 	"github.com/longjoy/micro-service/app/container"
-	"github.com/longjoy/micro-service/domain/usecase/listuser"
+	"github.com/longjoy/micro-service/domain/service/listuser"
 	"github.com/pkg/errors"
 )
 

@@ -17,7 +17,6 @@
 package registration
 
 import (
-
 	"github.com/longjoy/micro-service/domain/model"
 	"github.com/longjoy/micro-service/domain/repository"
 	"github.com/pkg/errors"
@@ -74,4 +73,3 @@ func (ruc *RegistrationUseCase) UnregisterUser(username string) error {
 func (ruc *RegistrationUseCase) ModifyAndUnregister(user *model.User) error {
 	return ModifyAndUnregister(ruc.UserRepository, user)
 }
-

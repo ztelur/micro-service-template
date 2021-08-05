@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package usecase
+package service
 
 import (
 	"github.com/longjoy/micro-service/domain/model"
@@ -58,4 +58,3 @@ type ListCourseUseCaseInterface interface {
 	// ListCourse retrieves all courses as an array of course
 	ListCourse() ([]model.Course, error)
 }
-
