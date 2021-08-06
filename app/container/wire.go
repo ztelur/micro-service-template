@@ -3,6 +3,7 @@ package container
 
 import (
 	"github.com/google/wire"
+	"github.com/longjoy/micro-service/app/bootstrap"
 	"github.com/longjoy/micro-service/domain/repository"
 	"github.com/longjoy/micro-service/domain/service"
 	"github.com/longjoy/micro-service/infra/persistent/sqldb"
@@ -24,14 +25,14 @@ type Container interface {
 }
 
 func InitializePermitService() (service.PermitService, error) {
-	wire.Build(service.NewPermitService, userRepositorySet, sqldb.NewSqlDB)
+	wire.Build(service.NewPermitService, userRepositorySet)
 	return service.PermitService{}, nil
 }
 
 var userRepositorySet = wire.NewSet(
-	sqldb.NewUserRepository,
+	sqldb.NewUserRepository, dbSet,
 	wire.Bind(new(repository.UserRepository), new(*sqldb.UserRepositoryImpl)))
 
 var dbSet = wire.NewSet(
 	sqldb.NewSqlDB,
-)
+	bootstrap.NewMySQLConf)

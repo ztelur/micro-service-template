@@ -19,7 +19,6 @@ package sqldb
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jfeng45/gtransaction/gdbc"
 	"github.com/longjoy/micro-service/domain/model"
 	"github.com/longjoy/micro-service/infra/logger"
 	"github.com/longjoy/micro-service/tool/timea"
@@ -40,7 +39,7 @@ const (
 
 // UserDataSql is the SQL implementation of UserRepository
 type UserRepositoryImpl struct {
-	DB gdbc.SqlGdbc
+	DB *sql.DB
 }
 
 func (ury *UserRepositoryImpl) Remove(username string) (int64, error) {
@@ -172,10 +171,6 @@ func (ury *UserRepositoryImpl) Insert(user *model.User) (*model.User, error) {
 	return user, nil
 }
 
-func (ury *UserRepositoryImpl) EnableTx(txFunc func() error) error {
-	return ury.DB.TxEnd(txFunc)
-}
-
-func NewUserRepository(db gdbc.SqlGdbc) *UserRepositoryImpl {
+func NewUserRepository(db *sql.DB) *UserRepositoryImpl {
 	return &UserRepositoryImpl{DB: db}
 }

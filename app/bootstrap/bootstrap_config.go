@@ -18,16 +18,10 @@ func init() {
 	if err := subParse("http", &HttpConfig); err != nil {
 		log.Fatal("Fail to parse Http config", err)
 	}
-	if err := subParse("discover", &DiscoverConfig); err != nil {
-		log.Fatal("Fail to parse Discover config", err)
-	}
-	if err := subParse("config", &ConfigServerConfig); err != nil {
-		log.Fatal("Fail to parse config server", err)
+	if err := subParse("mysql", &MySQlConfig); err != nil {
+		log.Fatal("Fail to parse mysql config", err)
 	}
 
-	if err := subParse("rpc", &RpcConfig); err != nil {
-		log.Fatal("Fail to parse rpc server", err)
-	}
 }
 func initBootstrapConfig() {
 	//设置读取的配置文件

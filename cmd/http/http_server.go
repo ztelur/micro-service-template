@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/longjoy/micro-service/app"
+	_ "github.com/longjoy/micro-service/app/bootstrap"
 	"github.com/longjoy/micro-service/app/container/servicecontainer"
 	"github.com/longjoy/micro-service/infra/logger"
 	"github.com/pkg/errors"
