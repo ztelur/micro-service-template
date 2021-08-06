@@ -20,8 +20,8 @@ import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jfeng45/gtransaction/gdbc"
-	"github.com/longjoy/micro-service/app/logger"
 	"github.com/longjoy/micro-service/domain/model"
+	"github.com/longjoy/micro-service/infra/logger"
 	"github.com/longjoy/micro-service/tool/timea"
 	"github.com/pkg/errors"
 	"time"
@@ -39,13 +39,13 @@ const (
 )
 
 // UserDataSql is the SQL implementation of UserRepository
-type UserDataSql struct {
+type UserRepositoryImpl struct {
 	DB gdbc.SqlGdbc
 }
 
-func (uds *UserDataSql) Remove(username string) (int64, error) {
+func (ury *UserRepositoryImpl) Remove(username string) (int64, error) {
 
-	stmt, err := uds.DB.Prepare(DELETE_USER)
+	stmt, err := ury.DB.Prepare(DELETE_USER)
 	if err != nil {
 		return 0, errors.Wrap(err, "")
 	}
@@ -64,8 +64,8 @@ func (uds *UserDataSql) Remove(username string) (int64, error) {
 	return rowsAffected, nil
 }
 
-func (uds *UserDataSql) Find(id int) (*model.User, error) {
-	rows, err := uds.DB.Query(QUERY_USER_BY_ID, id)
+func (ury *UserRepositoryImpl) Find(id int) (*model.User, error) {
+	rows, err := ury.DB.Query(QUERY_USER_BY_ID, id)
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
@@ -94,9 +94,9 @@ func rowsToUser(rows *sql.Rows) (*model.User, error) {
 	logger.Log.Debug("rows to User:", user)
 	return user, nil
 }
-func (uds *UserDataSql) FindByName(name string) (*model.User, error) {
+func (ury *UserRepositoryImpl) FindByName(name string) (*model.User, error) {
 	//logger.Log.Debug("call FindByName() and name is:", name)
-	rows, err := uds.DB.Query(QUERY_USER_BY_NAME, name)
+	rows, err := ury.DB.Query(QUERY_USER_BY_NAME, name)
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
@@ -104,9 +104,9 @@ func (uds *UserDataSql) FindByName(name string) (*model.User, error) {
 	return retrieveUser(rows)
 }
 
-func (uds *UserDataSql) FindAll() ([]model.User, error) {
+func (ury *UserRepositoryImpl) FindAll() ([]model.User, error) {
 
-	rows, err := uds.DB.Query(QUERY_USER)
+	rows, err := ury.DB.Query(QUERY_USER)
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
@@ -130,9 +130,9 @@ func (uds *UserDataSql) FindAll() ([]model.User, error) {
 	return users, nil
 }
 
-func (uds *UserDataSql) Update(user *model.User) (int64, error) {
+func (ury *UserRepositoryImpl) Update(user *model.User) (int64, error) {
 
-	stmt, err := uds.DB.Prepare(UPDATE_USER)
+	stmt, err := ury.DB.Prepare(UPDATE_USER)
 
 	if err != nil {
 		return 0, errors.Wrap(err, "")
@@ -152,9 +152,9 @@ func (uds *UserDataSql) Update(user *model.User) (int64, error) {
 	return rowsAffected, nil
 }
 
-func (uds *UserDataSql) Insert(user *model.User) (*model.User, error) {
+func (ury *UserRepositoryImpl) Insert(user *model.User) (*model.User, error) {
 
-	stmt, err := uds.DB.Prepare(INSERT_USER)
+	stmt, err := ury.DB.Prepare(INSERT_USER)
 	if err != nil {
 		return nil, errors.Wrap(err, "")
 	}
@@ -172,7 +172,10 @@ func (uds *UserDataSql) Insert(user *model.User) (*model.User, error) {
 	return user, nil
 }
 
-func (uds *UserDataSql) EnableTx(txFunc func() error) error {
-	return uds.DB.TxEnd(txFunc)
+func (ury *UserRepositoryImpl) EnableTx(txFunc func() error) error {
+	return ury.DB.TxEnd(txFunc)
 }
 
+func NewUserRepository(db gdbc.SqlGdbc) *UserRepositoryImpl {
+	return &UserRepositoryImpl{DB: db}
+}

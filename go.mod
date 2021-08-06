@@ -11,7 +11,7 @@ require (
 	github.com/go-ozzo/ozzo-validation v3.5.0+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.3.3
-	github.com/google/wire v0.5.0 // indirect
+	github.com/google/wire v0.5.0
 	github.com/gopherjs/gopherjs v0.0.0-20210803090616-8f023c250c89 // indirect
 	github.com/jfeng45/glogger v0.0.0-20200604022340-2e2251ddc0a7
 	github.com/jfeng45/gtransaction v0.0.0-20200601024905-babe8d366eed

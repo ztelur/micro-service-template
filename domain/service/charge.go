@@ -1,4 +1,8 @@
 package service
 
-type ChargeService interface {
+type ChargeService struct {
+}
+
+func NewChargeService() ChargeService {
+	return ChargeService{}
 }

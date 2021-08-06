@@ -21,7 +21,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/longjoy/micro-service/app"
 	"github.com/longjoy/micro-service/app/container/servicecontainer"
-	"github.com/longjoy/micro-service/app/logger"
+	"github.com/longjoy/micro-service/infra/logger"
 	"github.com/pkg/errors"
 )
 
@@ -29,7 +29,6 @@ const (
 	DEV_CONFIG  string = "../../app/config/appConfigDev.yaml"
 	PROD_CONFIG string = "../../app/config/appConfigProd.yaml"
 )
-
 
 func main() {
 

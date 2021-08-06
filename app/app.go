@@ -1,3 +1,5 @@
+//+build wireinject
+
 package app
 
 import (
@@ -13,7 +15,7 @@ import (
 // InitApp loads the application configurations from a file and saved it in appConfig and initialize the logger
 // The appConfig is cached in container, so it only loads the configuration file once.
 // InitApp only needs to be called once. If the configuration changes, you can call it again to reinitialize the app.
-func InitApp(filename...string) (container.Container, error) {
+func InitApp(filename ...string) (container.Container, error) {
 	config, err := config.BuildConfig(filename...)
 	if err != nil {
 		return nil, errors.Wrap(err, "BuildConfig")
@@ -25,7 +27,7 @@ func InitApp(filename...string) (container.Container, error) {
 	return initContainer(config)
 }
 
-func initLogger (lc *logConfig.Logging) error{
+func initLogger(lc *logConfig.Logging) error {
 	log, err := logFactory.Build(lc)
 	if err != nil {
 		return errors.Wrap(err, "loadLogger")
@@ -36,7 +38,7 @@ func initLogger (lc *logConfig.Logging) error{
 
 func initContainer(config *config.AppConfig) (container.Container, error) {
 	factoryMap := make(map[string]interface{})
-	c := servicecontainer.ServiceContainer{factoryMap,config}
+	c := servicecontainer.ServiceContainer{factoryMap, config}
 	//gdbc, err :=initGdbc(&c.AppConfig.SQLConfig)
 	//if err != nil {
 	//	return nil,err

@@ -21,16 +21,16 @@ const (
 // use case code. Need to map to the use case code (UseCaseConfig) in the configuration yaml file.
 // Client app use those to retrieve use case from the container
 const (
-	REGISTRATION string = "registration"
+	REGISTRATION    string = "registration"
 	REGISTRATION_TX string = "registrationTx"
-	LIST_USER    string = "listUser"
+	LIST_USER       string = "listUser"
 )
 
 // data service code. Need to map to the data service code (DataConfig) in the configuration yaml file.
 const (
-	USER_DATA   string = "userData"
-	CACHE_DATA  string = "cacheData"
-	TX_DATA     string = "txData"
+	USER_DATA  string = "userData"
+	CACHE_DATA string = "cacheData"
+	TX_DATA    string = "txData"
 	//COURSE_DATA string = "courseData"
 )
 
@@ -52,7 +52,7 @@ func validateConfig(appConfig AppConfig) error {
 }
 
 func validateLogger(appConfig AppConfig) error {
-	zc :=  appConfig.ZapConfig
+	zc := appConfig.ZapConfig
 	key := zc.Code
 	zcMsg := " in validateLogger doesn't match key = "
 	if ZAP != key {
@@ -74,25 +74,6 @@ func validateDataStore(appConfig AppConfig) error {
 	scMsg := " in validateDataStore doesn't match key = "
 	if SQLDB != key {
 		errMsg := SQLDB + scMsg + key
-		return errors.New(errMsg)
-	}
-	cc := appConfig.CouchdbConfig
-	key = cc.Code
-	if COUCHDB != key {
-		errMsg := COUCHDB + scMsg + key
-		return errors.New(errMsg)
-	}
-	cgc := appConfig.CacheGrpcConfig
-	key = cgc.Code
-	if CACHE_GRPC != key {
-		errMsg := CACHE_GRPC + scMsg + key
-		return errors.New(errMsg)
-	}
-
-	ugc := appConfig.UserGrpcConfig
-	key = ugc.Code
-	if USER_GRPC != key {
-		errMsg := USER_GRPC + scMsg + key
 		return errors.New(errMsg)
 	}
 
@@ -162,4 +143,3 @@ func validateListUser(useCaseConfig UseCaseConfig) error {
 	}
 	return nil
 }
-

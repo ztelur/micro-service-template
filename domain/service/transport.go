@@ -1,4 +1,8 @@
 package service
 
-type TransportService interface {
+type TransportService struct {
+}
+
+func NewTransportService() TransportService {
+	return TransportService{}
 }

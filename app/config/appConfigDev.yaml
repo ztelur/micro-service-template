@@ -33,22 +33,4 @@ logrusConfig: &logrusConfig
     level: debug
     enableCaller: false
 logConfig: *zapConfig
-useCaseConfig:
-    registration:
-        code: registration
-        userDataConfig: &userDataConfig
-            code: userData
-            dataStoreConfig: *sqlConfig
-    listUser:
-        code: listUser
-        userDataConfig: *userDataConfig
-        cacheDataConfig: &cacheDataConfig
-            code: cacheData
-            dataStoreConfig: *cacheGrpcConfig
-    registrationTx:
-        code: registrationTx
-        userDataConfig: &userDataConfigTx
-            code: userData
-            dataStoreConfig: *sqlConfigTx
-
 

@@ -1,4 +1,8 @@
 package service
 
-type WharfService interface {
+type WharfService struct {
+}
+
+func NewWharfService() WharfService {
+	return WharfService{}
 }

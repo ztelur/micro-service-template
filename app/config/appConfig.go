@@ -13,22 +13,19 @@ import (
 
 // AppConfig represents the application config
 type AppConfig struct {
-	SQLConfig       DataStoreConfig `yaml:"sqlConfig"`
-	SQLConfigTx       DataStoreConfig `yaml:"sqlConfigTx"`
-	CouchdbConfig   DataStoreConfig `yaml:"couchdbConfig"`
-	CacheGrpcConfig DataStoreConfig `yaml:"cacheGrpcConfig"`
-	UserGrpcConfig  DataStoreConfig `yaml:"userGrpcConfig"`
-	ZapConfig       logConfig.Logging       `yaml:"zapConfig"`
-	LorusConfig     logConfig.Logging        `yaml:"logrusConfig"`
-	LogConfig       logConfig.Logging        `yaml:"logConfig"`
-	UseCaseConfig   UseCaseConfig   `yaml:"useCaseConfig"`
+	SQLConfig     DataStoreConfig   `yaml:"sqlConfig"`
+	SQLConfigTx   DataStoreConfig   `yaml:"sqlConfigTx"`
+	ZapConfig     logConfig.Logging `yaml:"zapConfig"`
+	LorusConfig   logConfig.Logging `yaml:"logrusConfig"`
+	LogConfig     logConfig.Logging `yaml:"logConfig"`
+	UseCaseConfig UseCaseConfig     `yaml:"useCaseConfig"`
 }
 
 // UseCaseConfig represents different use cases
 type UseCaseConfig struct {
-	Registration RegistrationConfig `yaml:"registration"`
+	Registration   RegistrationConfig   `yaml:"registration"`
 	RegistrationTx RegistrationTxConfig `yaml:"registrationTx"`
-	ListUser     ListUserConfig     `yaml:"listUser"`
+	ListUser       ListUserConfig       `yaml:"listUser"`
 }
 
 // RegistrationConfig represents registration use case
@@ -116,5 +113,3 @@ func buildConfigFromFile(filename string) (*AppConfig, error) {
 	fmt.Println("appConfig:", ac)
 	return &ac, nil
 }
-
-
